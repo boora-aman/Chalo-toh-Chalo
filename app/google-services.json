@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1063406734664",
+    "project_id": "chalo-toh-chalo-8093b",
+    "storage_bucket": "chalo-toh-chalo-8093b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1063406734664:android:43126aecc5fa7b1327b77d",
+        "android_client_info": {
+          "package_name": "com.example.chalotohchalo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1063406734664-l3d4k9n851c5osb1msond3qg0q116jri.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvR5hq9lkZRWw8SL7MytYgSWSq4eBju_M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1063406734664-l3d4k9n851c5osb1msond3qg0q116jri.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
