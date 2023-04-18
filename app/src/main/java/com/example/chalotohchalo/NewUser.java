@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,8 +29,9 @@ public class NewUser extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     Button signup_button;
-    TextInputLayout newUser_fullName, newUser_Username, newUser_email, newUser_phoneN, newUser_password;
+    TextInputLayout newUser_fullName, newUser_email, newUser_phoneN, newUser_password;
     TextView login_redirect;
+    RadioGroup gender_radio;
 
     public class App extends Application {
         @Override
@@ -60,7 +62,7 @@ public class NewUser extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         newUser_fullName = findViewById(R.id.newUser_fullName);
         newUser_email = findViewById(R.id.newUser_email);
-        //newUser_Username = findViewById(R.id.newUser_Username);
+        gender_radio = findViewById(R.id.gender_radio);
         newUser_password = findViewById(R.id.newUser_password);
         newUser_phoneN = findViewById(R.id.newUser_phoneN);
 
@@ -78,9 +80,19 @@ public class NewUser extends AppCompatActivity {
         signup_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name, username, email, phone, password;
+                String name, gender, email, phone, password;
                 name = newUser_fullName.getEditText().getText().toString();
-                username = newUser_Username.getEditText().getText().toString();
+
+                int id = gender_radio.getCheckedRadioButtonId();
+                if (id == R.id.male_button)
+                    gender="Male";
+                else if (id == R.id.female_button)
+                    gender="Female";
+                else if (id == R.id.other_button)
+                    gender="Others";
+                else
+                    gender=null;
+
                 email = newUser_email.getEditText().getText().toString();
                 phone =newUser_phoneN.getEditText().getText().toString();
                 password = newUser_password.getEditText().getText().toString();
@@ -105,10 +117,10 @@ public class NewUser extends AppCompatActivity {
                     return;
                 }
 
-                if (TextUtils.isEmpty(username)) {
+                /*if (TextUtils.isEmpty(gender)) {
                     Toast.makeText(NewUser.this, "Please Provide Username", Toast.LENGTH_SHORT).show();
                     return;
-                }
+                }*/
 
                 if (phone.length() != 10) {
                     Toast.makeText(NewUser.this, "Phone number should be 10 digits.", Toast.LENGTH_SHORT).show();
@@ -123,7 +135,7 @@ public class NewUser extends AppCompatActivity {
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     String uid = user.getUid();
 
-                                    User newUser = new User(name, username, email, phone, password);
+                                    User newUser = new User(name, gender, email, phone, password);
 
                                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                                     DatabaseReference usersRef = database.getReference("users").child(user.getUid());

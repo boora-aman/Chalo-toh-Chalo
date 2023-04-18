@@ -1,5 +1,6 @@
 package com.example.chalotohchalo;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -34,8 +35,8 @@ public class MyProfile_fragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
-                home_fragment homeFragment = new home_fragment();
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.bnView,homeFragment).commit();
+                Intent intent = new Intent(getActivity(),LoginPage.class);
+                startActivity(intent);
             }
         });
 

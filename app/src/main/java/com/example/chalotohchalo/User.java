@@ -2,7 +2,7 @@ package com.example.chalotohchalo;
 
 public class User {
     private String name;
-    private String username;
+    private String gender;
     private String email;
     private String phone;
     private String password;
@@ -10,9 +10,9 @@ public class User {
     public User() {
     }
 
-    public User(String name, String username, String email, String phone, String password) {
+    public User(String name, String gender, String email, String phone, String password) {
         this.name = name;
-        this.username = username;
+        this.gender = gender;
         this.email = email;
         this.phone = phone;
         this.password = password;
@@ -27,12 +27,12 @@ public class User {
         this.name = name;
     }
 
-    public String getUsername() {
-        return username;
+    public String getGender() {
+        return gender;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public String getEmail() {
