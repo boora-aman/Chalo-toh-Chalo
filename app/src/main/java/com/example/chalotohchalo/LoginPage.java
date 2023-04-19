@@ -60,46 +60,45 @@ public class LoginPage extends AppCompatActivity {
 
         tv_new_user = findViewById(R.id.tv_new_user);
 
-        tv_new_user.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginPage.this, NewUser.class);
-                startActivity(intent);
-            }
+        tv_new_user.setOnClickListener(v -> {
+            Intent intent = new Intent(LoginPage.this, NewUser.class);
+            startActivity(intent);
         });
-        login_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String email,password;
-                email = login_email.getEditText().getText().toString();
-                password = login_password.getEditText().getText().toString();
+        login_button.setOnClickListener(v -> {
+            String email,password;
+            email = login_email.getEditText().getText().toString();
+            password = login_password.getEditText().getText().toString();
 
-                if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(LoginPage.this, "Please Provide Email", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+            if (TextUtils.isEmpty(email)) {
+                Toast.makeText(LoginPage.this, "Please Provide Email", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-                if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(LoginPage.this, "Please Provide Password", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+            if (TextUtils.isEmpty(password)) {
+                Toast.makeText(LoginPage.this, "Please Provide Password", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-                mAuth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(LoginPage.this, "Login Successful.", Toast.LENGTH_SHORT).show();
-                                    Intent intent3 = new Intent(getApplicationContext(), HomePage.class);
-                                    startActivity(intent3);
-                                } else {
-                                    Toast.makeText(LoginPage.this, "Authentication failed.",
-                                            Toast.LENGTH_SHORT).show();
-                                }
+            mAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(LoginPage.this, "Login Successful.", Toast.LENGTH_SHORT).show();
+                                Intent intent3 = new Intent(getApplicationContext(), HomePage.class);
+                                startActivity(intent3);
+                            } else {
+                                Toast.makeText(LoginPage.this, "Authentication failed.",
+                                        Toast.LENGTH_SHORT).show();
                             }
-                        });
-            }
+                        }
+                    });
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        finishAffinity();
     }
 }
 

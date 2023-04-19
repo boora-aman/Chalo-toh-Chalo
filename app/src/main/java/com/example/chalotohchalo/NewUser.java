@@ -69,94 +69,94 @@ public class NewUser extends AppCompatActivity {
         signup_button = findViewById(R.id.signup_button);
 
         login_redirect = findViewById(R.id.login_redirect);
-        login_redirect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(NewUser.this, LoginPage.class);
-                startActivity(intent);
-                finish();
-            }
+        login_redirect.setOnClickListener(v -> {
+            Intent intent = new Intent(NewUser.this, LoginPage.class);
+            startActivity(intent);
+            finish();
         });
-        signup_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String name, gender, email, phone, password;
-                name = newUser_fullName.getEditText().getText().toString();
 
-                int id = gender_radio.getCheckedRadioButtonId();
-                if (id == R.id.male_button)
-                    gender="Male";
-                else if (id == R.id.female_button)
-                    gender="Female";
-                else if (id == R.id.other_button)
-                    gender="Others";
-                else
-                    gender=null;
+        signup_button.setOnClickListener(v -> {
+            String name, gender, email, phone, password;
+            name = newUser_fullName.getEditText().getText().toString();
 
-                email = newUser_email.getEditText().getText().toString();
-                phone =newUser_phoneN.getEditText().getText().toString();
-                password = newUser_password.getEditText().getText().toString();
+            int id = gender_radio.getCheckedRadioButtonId();
+            if (id == R.id.male_button)
+                gender="Male";
+            else if (id == R.id.female_button)
+                gender="Female";
+            else if (id == R.id.other_button)
+                gender="Others";
+            else
+                gender=null;
 
-                if (TextUtils.isEmpty(name)) {
-                    Toast.makeText(NewUser.this, "Please Provide Name", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+            email = newUser_email.getEditText().getText().toString();
+            phone =newUser_phoneN.getEditText().getText().toString();
+            password = newUser_password.getEditText().getText().toString();
 
-                if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(NewUser.this, "Please Provide Email", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+            if (TextUtils.isEmpty(name)) {
+                Toast.makeText(NewUser.this, "Please Provide Name", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-                if (TextUtils.isEmpty(phone)) {
-                    Toast.makeText(NewUser.this, "Please Provide Mobile Number", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+            if (TextUtils.isEmpty(email)) {
+                Toast.makeText(NewUser.this, "Please Provide Email", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-                if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(NewUser.this, "Please Provide Password", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+            if (TextUtils.isEmpty(phone)) {
+                Toast.makeText(NewUser.this, "Please Provide Mobile Number", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-                /*if (TextUtils.isEmpty(gender)) {
-                    Toast.makeText(NewUser.this, "Please Provide Username", Toast.LENGTH_SHORT).show();
-                    return;
-                }*/
+            if (TextUtils.isEmpty(password)) {
+                Toast.makeText(NewUser.this, "Please Provide Password", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-                if (phone.length() != 10) {
-                    Toast.makeText(NewUser.this, "Phone number should be 10 digits.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+            /*if (TextUtils.isEmpty(gender)) {
+                Toast.makeText(NewUser.this, "Please Provide Username", Toast.LENGTH_SHORT).show();
+                return;
+            }*/
 
-                mAuth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    FirebaseUser user = mAuth.getCurrentUser();
-                                    String uid = user.getUid();
+            if (phone.length() != 10) {
+                Toast.makeText(NewUser.this, "Phone number should be 10 digits.", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-                                    User newUser = new User(name, gender, email, phone, password);
+            mAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                String uid = user.getUid();
 
-                                    FirebaseDatabase database = FirebaseDatabase.getInstance();
-                                    DatabaseReference usersRef = database.getReference("users").child(user.getUid());
+                                User newUser = new User(name, gender, email, phone, password);
 
-                                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                            .setDisplayName(name).build();
+                                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                DatabaseReference usersRef = database.getReference("users").child(user.getUid());
 
-                                    user.updateProfile(profileUpdates);
+                                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                        .setDisplayName(name).build();
 
-                                    usersRef.child(uid).setValue(newUser);
+                                user.updateProfile(profileUpdates);
 
-                                    Toast.makeText(NewUser.this, "Successfully Registered.", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(NewUser.this, LoginPage.class);
-                                    startActivity(intent);
-                                    finish();
-                                } else {
-                                    Toast.makeText(NewUser.this, "User Already Exists!", Toast.LENGTH_SHORT).show();
-                                }
+                                usersRef.setValue(newUser);
+
+                                Toast.makeText(NewUser.this, "Successfully Registered.", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(NewUser.this, LoginPage.class);
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                Toast.makeText(NewUser.this, "User Already Exists!", Toast.LENGTH_SHORT).show();
                             }
-                        });
-            }
+                        }
+                    });
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        finishAffinity();
     }
 }

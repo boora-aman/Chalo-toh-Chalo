@@ -5,7 +5,6 @@ public class User {
     private String gender;
     private String email;
     private String phone;
-    private String password;
 
     public User() {
     }
@@ -15,7 +14,6 @@ public class User {
         this.gender = gender;
         this.email = email;
         this.phone = phone;
-        this.password = password;
     }
 
     // Getters and setters for the fields
@@ -51,11 +49,4 @@ public class User {
         this.phone = phone;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }
