@@ -21,8 +21,9 @@
         android:text="Chalo Toh Chalo"
         android:textAlignment="center"
         android:textSize="45sp"
-        android:textColor="#000"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"
+        />
 
     <TextView
         android:id="@+id/tv_appDescription"
@@ -31,7 +32,6 @@
         android:text="Fikar not and Chalo toh"
         android:textSize="25sp"
         android:textAlignment="center"
-        android:textColor="#000"
         android:layout_marginTop="15dp"/>
 
 

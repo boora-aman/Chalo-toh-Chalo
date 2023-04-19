@@ -15,7 +15,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class MyProfile_fragment extends Fragment {
 
-    private Button logout_button;
+    Button logout_button;
 
     public MyProfile_fragment() {
         // Required empty public constructor
